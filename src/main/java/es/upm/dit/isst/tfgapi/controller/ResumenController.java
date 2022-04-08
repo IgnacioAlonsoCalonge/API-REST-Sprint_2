@@ -57,7 +57,7 @@ public class ResumenController {
        
        HttpHeaders headers = new HttpHeaders();
 
-       headers.setContentDispositionFormData("Resumen1.pdf", "Resumen1.pdf");
+       headers.setContentDispositionFormData("Resumen.pdf", "Resumen1.pdf");
        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
        headers.add("Pragma", "no-cache");
        headers.add("Expires", "0");
