@@ -53,11 +53,13 @@ public class ResumenController {
 
        byte[] documento = resumen.getDocumento();
 
+       String titulo = resumen.getTitulo();
+
        ByteArrayResource resource = new ByteArrayResource(documento) ;
        
        HttpHeaders headers = new HttpHeaders();
 
-       headers.setContentDispositionFormData("Resumen1.pdf", "Resumen1.pdf");
+       headers.setContentDispositionFormData( titulo+".pdf", titulo+".pdf");
        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
        headers.add("Pragma", "no-cache");
        headers.add("Expires", "0");
