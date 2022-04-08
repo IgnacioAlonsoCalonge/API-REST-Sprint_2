@@ -12,12 +12,16 @@ public class Resumen {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String titulo;
-    private String descripcion;
+    
     private String autor;
     private String acceso; //enum
     private String publicado; //boolean
     private int likes; //@Formula
 
+    
+    @Lob
+    private char[] descripcion;
+    
     @Lob
     private byte[] imagen;
 
@@ -30,7 +34,7 @@ public class Resumen {
 
     }
     
-    public Resumen(Long id, String titulo, String descripcion, byte[] imagen, String autor, String acceso,
+    public Resumen(Long id, String titulo, char[] descripcion, byte[] imagen, String autor, String acceso,
             String publicado, int likes, byte[] documento, byte[] audio) {
         this.id = id;
         this.titulo = titulo;
@@ -56,10 +60,10 @@ public class Resumen {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public String getDescripcion() {
+    public char[] getDescripcion() {
         return descripcion;
     }
-    public void setDescripcion(String descripcion) {
+    public void setDescripcion(char[] descripcion) {
         this.descripcion = descripcion;
     }
     public byte[] getImagen() {
