@@ -60,6 +60,7 @@ public class ResumenController {
        HttpHeaders headers = new HttpHeaders();
 
        headers.setContentDispositionFormData( titulo+".pdf", titulo+".pdf");
+
        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
        headers.add("Pragma", "no-cache");
        headers.add("Expires", "0");
