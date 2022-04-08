@@ -1,20 +1,27 @@
 package es.upm.dit.isst.tfgapi.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
 @Entity
 public class Resumen {
     @Id
-    private String id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
     private String titulo;
-    private String descripcion;
+    
     private String autor;
     private String acceso; //enum
     private String publicado; //boolean
     private int likes; //@Formula
 
+    
+    @Lob
+    private char[] descripcion;
+    
     @Lob
     private byte[] imagen;
 
@@ -27,7 +34,7 @@ public class Resumen {
 
     }
     
-    public Resumen(String id, String titulo, String descripcion, byte[] imagen, String autor, String acceso,
+    public Resumen(Long id, String titulo, char[] descripcion, byte[] imagen, String autor, String acceso,
             String publicado, int likes, byte[] documento, byte[] audio) {
         this.id = id;
         this.titulo = titulo;
@@ -41,10 +48,10 @@ public class Resumen {
         this.audio = audio;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getTitulo() {
@@ -53,10 +60,10 @@ public class Resumen {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    public String getDescripcion() {
+    public char[] getDescripcion() {
         return descripcion;
     }
-    public void setDescripcion(String descripcion) {
+    public void setDescripcion(char[] descripcion) {
         this.descripcion = descripcion;
     }
     public byte[] getImagen() {
