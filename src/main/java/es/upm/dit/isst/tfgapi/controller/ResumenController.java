@@ -1,5 +1,7 @@
 package es.upm.dit.isst.tfgapi.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.upm.dit.isst.tfgapi.model.Resumen;
@@ -33,13 +37,13 @@ public class ResumenController {
     }
  
     @GetMapping("/resumenes/{id}")
-    ResponseEntity<Resumen> read(@PathVariable String id){    
+    ResponseEntity<Resumen> read(@PathVariable Long id){    
          return resumenRepository.findById(id).map(tfg ->
          ResponseEntity.ok().body(tfg)).orElse(new ResponseEntity<Resumen>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("resumenes/{id}")
-    ResponseEntity<Resumen> delete(@PathVariable String id){
+    ResponseEntity<Resumen> delete(@PathVariable Long id){
         resumenRepository.deleteById(id);  
         return ResponseEntity.ok().body(null);  
     }
@@ -47,7 +51,7 @@ public class ResumenController {
 
     @GetMapping("/resumenes/{id}/pdf")
 
-    public ResponseEntity<ByteArrayResource> getFilePdf(@PathVariable String id) {
+    public ResponseEntity<ByteArrayResource> getFilePdf(@PathVariable Long id) {
 
        Resumen resumen = resumenRepository.findById(id).get();
 
@@ -70,7 +74,7 @@ public class ResumenController {
 
     @GetMapping("/resumenes/{id}/mp3")
 
-    public ResponseEntity<ByteArrayResource> getFileMp3(@PathVariable String id) {
+    public ResponseEntity<ByteArrayResource> getFileMp3(@PathVariable Long id) {
 
        Resumen resumen = resumenRepository.findById(id).get();
 
@@ -88,4 +92,30 @@ public class ResumenController {
        return new ResponseEntity<ByteArrayResource>(resource, headers, HttpStatus.OK);
     }
     
+    @PostMapping("/resumenes/crear")
+
+    ResponseEntity<Resumen> create(@RequestBody Resumen newResumen) throws URISyntaxException {
+
+        Resumen result = resumenRepository.save(newResumen);
+
+      return ResponseEntity.created(new URI("/resumenes/" + result.getId())).body(result);
+
+    }
+
+    @PostMapping("/resumenes/{id}/incrementa")
+
+    ResponseEntity<Resumen> incrementa(@PathVariable Long id) {
+
+      return resumenRepository.findById(id).map(tfg -> {
+
+       
+
+        resumenRepository.save(tfg);
+
+        return ResponseEntity.ok().body(tfg);
+
+      }).orElse(new ResponseEntity<Resumen>(HttpStatus.NOT_FOUND));  
+
+    }
+
 }
