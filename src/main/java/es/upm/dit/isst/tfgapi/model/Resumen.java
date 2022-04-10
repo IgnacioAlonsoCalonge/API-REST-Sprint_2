@@ -15,7 +15,7 @@ public class Resumen {
     
     private String autor;
     private String acceso; //enum
-    private String publicado; //boolean
+    private boolean publicado; //boolean
     private int likes; //@Formula
 
     
@@ -35,7 +35,7 @@ public class Resumen {
     }
     
     public Resumen(Long id, String titulo, char[] descripcion, byte[] imagen, String autor, String acceso,
-            String publicado, int likes, byte[] documento, byte[] audio) {
+        boolean publicado, int likes, byte[] documento, byte[] audio) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -84,10 +84,10 @@ public class Resumen {
     public void setAcceso(String acceso) {
         this.acceso = acceso;
     }
-    public String getPublicado() {
+    public boolean getPublicado() {
         return publicado;
     }
-    public void setPublicado(String publicado) {
+    public void setPublicado(boolean publicado) {
         this.publicado = publicado;
     }
     public int getLikes() {
