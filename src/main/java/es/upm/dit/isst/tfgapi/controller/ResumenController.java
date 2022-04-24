@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -109,16 +110,30 @@ public class ResumenController {
 
     ResponseEntity<Resumen> incrementa(@PathVariable Long id) {
 
-      return resumenRepository.findById(id).map(tfg -> {
+      return resumenRepository.findById(id).map(resumen -> {
 
-       
+        resumenRepository.save(resumen);
 
-        resumenRepository.save(tfg);
-
-        return ResponseEntity.ok().body(tfg);
+        return ResponseEntity.ok().body(resumen);
 
       }).orElse(new ResponseEntity<Resumen>(HttpStatus.NOT_FOUND));  
 
     }
+
+    @PutMapping("/resumenes/{id}")
+
+    ResponseEntity<Resumen> update(@PathVariable Long id) {
+
+      Resumen resumen = resumenRepository.findById(id).get();
+
+      resumen.setPublicado(true); 
+
+      resumenRepository.save(resumen);
+
+      return ResponseEntity.ok().body(resumen);
+
+    }
+
+
 
 }
